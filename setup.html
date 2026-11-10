@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MPT27 — Python Setup</title>
+<style>
+  body {
+    margin: 0;
+    background: #fff;
+    color: #222;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px 60px; }
+  header { text-align: center; padding: 36px 0 8px; }
+  header img { width: 220px; height: auto; }
+  header h1 { font-size: 27px; font-weight: bold; margin: 14px 0 2px; color: #1b1f4b; }
+  header p { margin: 0; color: #555; }
+  nav {
+    text-align: center;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin: 24px 0 8px;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+  nav a { color: #1b1f4b; text-decoration: none; margin: 0 10px; white-space: nowrap; }
+  nav a:hover { text-decoration: underline; }
+  #content h2 {
+    color: #1b1f4b;
+    font-size: 20px;
+    margin: 40px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #1b1f4b;
+  }
+  #content h3 { color: #1b1f4b; font-size: 17px; margin: 24px 0 6px; }
+  #content a { color: #1b1f4b; }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid #e3e3e3; }
+  th { font-size: 13px; font-weight: bold; color: #1b1f4b; border-bottom: 1px solid #1b1f4b; }
+  .info th { width: 140px; border-bottom: 1px solid #e3e3e3; font-size: 14px; }
+  .sched td:first-child, .sched td:nth-child(2) { white-space: nowrap; }
+  .sched tr.due td { background: #f4f5fa; }
+  .muted { color: #888; }
+  ol li, ul li { margin-bottom: 6px; }
+  .note { font-size: 15px; color: #444; }
+  footer {
+    margin-top: 50px;
+    padding-top: 12px;
+    border-top: 1px solid #ddd;
+    font-size: 13px;
+    color: #777;
+    text-align: center;
+  }
+  .back { text-align: center; margin: 14px 0 0; font-size: 14px; }
+  .back a { color: #1b1f4b; }
+  #content code { font-family: Menlo, Consolas, monospace; font-size: 0.9em; background: #f3f4f8; padding: 1px 4px; border-radius: 3px; }
+  #content pre { position: relative; background: #f3f4f8; border: 1px solid #e0e2ec; border-radius: 4px; padding: 12px 70px 12px 14px; overflow-x: auto; line-height: 1.45; }
+  #content pre code { background: none; padding: 0; font-size: 13.5px; white-space: pre; }
+  .copybtn { position: absolute; top: 6px; right: 6px; font: 12px Arial, sans-serif; background: #fff; color: #1b1f4b; border: 1px solid #c5c8d8; border-radius: 3px; padding: 2px 8px; cursor: pointer; }
+  .copybtn:hover { border-color: #1b1f4b; }
+  @media (max-width: 700px) {
+    .sched-wrap { overflow-x: auto; }
+    .sched { min-width: 680px; }
+  }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <img src="logo.png" alt="MPT27 logo: a wizard looking through a telescope">
+  <h1>Python Setup</h1>
+  <p>MACRO Preceptor Training 27 &middot; complete before Feb 3</p>
+</header>
+<p class="back"><a href="index.html">&larr; Course syllabus</a></p>
+<nav id="nav"></nav>
+<main id="content">
+<p class="note">Complete this setup before the Feb 3 class (week 2). It takes about 30&ndash;60 minutes, most of it waiting for downloads.</p>
+
+<h2>Before you start</h2>
+<p>When you're done, your computer will have three things:</p>
+<ol>
+  <li><strong>Miniforge</strong>, which installs Python and manages Python environments with a tool called <code>conda</code>.</li>
+  <li><strong>VS Code</strong>, the editor we'll use for Python scripts and Jupyter notebooks.</li>
+  <li>The <strong>photometry</strong> environment, a self-contained Python setup with every package the course needs (astropy, photutils, ccdproc and others).</li>
+</ol>
+<p>You'll need:</p>
+<ul>
+  <li>A computer running Windows 10/11, macOS, or Linux. Chromebooks and tablets (iPads, Android tablets) won't work; talk to Nathalie if that's all you have.</li>
+  <li>About 10 GB of free disk space in total, for the software plus the RLMT data you'll work with.</li>
+  <li>The file <strong>photometry.yml</strong>, posted on the course Discord.</li>
+  <li>A reliable internet connection for about 30 minutes.</li>
+</ul>
+<p>If you already have Anaconda or Miniconda installed, skip Step 1 and use the conda you have. Don't install a second one.</p>
+
+<h2>Step 1: Install Miniforge</h2>
+<p>Miniforge gives you Python and <code>conda</code>, set up to download packages from conda-forge. Download page: <a href="https://conda-forge.org/download">conda-forge.org/download</a>.</p>
+<h3>Windows</h3>
+<ol>
+  <li>Download <a href="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe">Miniforge3-Windows-x86_64.exe</a> and run it. If Windows warns you about the file, choose <strong>More info &rarr; Run anyway</strong>.</li>
+  <li>Choose <strong>Just Me</strong> and keep the default install folder. Avoid folders with spaces or special characters in the path.</li>
+  <li>Keep <strong>Create start menu shortcuts</strong> checked and accept the other defaults.</li>
+  <li>When it finishes, open <strong>Miniforge Prompt</strong> from the Start menu. On Windows, this is where you type every <code>conda</code> command in this guide.</li>
+  <li>In Miniforge Prompt, type <code>conda init powershell</code> and press Enter. This lets the terminal inside VS Code use conda later. Close Miniforge Prompt and open it again.</li>
+</ol>
+<h3>Mac and Linux</h3>
+<ol>
+  <li>Open <strong>Terminal</strong> (on a Mac: Applications &rarr; Utilities &rarr; Terminal).</li>
+  <li>Copy and paste these two lines, pressing Enter after each:</li>
+</ol>
+<pre><code>curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+bash Miniforge3-$(uname)-$(uname -m).sh</code></pre>
+<p class="note"><em>Copy each line exactly, quotes included, and run both in the same Terminal window. The <code>$(uname)</code> parts fill in your system automatically. Don't download the installer from the website instead: that file has a different name, and the second line won't find it.</em></p>
+<ol start="3">
+  <li>Press Enter to page through the license, then type <code>yes</code> to accept it.</li>
+  <li>Press Enter to accept the default install location.</li>
+  <li>When it asks whether to initialize conda ("conda init"), type <code>yes</code>. This is the important one.</li>
+  <li>Quit Terminal completely and open it again.</li>
+</ol>
+<h3>Check it worked</h3>
+<p>In Miniforge Prompt (Windows) or a new Terminal (Mac/Linux), type:</p>
+<pre><code>conda --version</code></pre>
+<p>You should see something like <code>conda 25.x.x</code>. On a Mac, your prompt should also now start with <code>(base)</code>.</p>
+
+<h2>Step 2: Install VS Code</h2>
+<ol>
+  <li>Download VS Code from <a href="https://code.visualstudio.com/">code.visualstudio.com</a> and install it.
+    <ul>
+      <li><strong>Windows:</strong> accept the defaults. Checking <strong>Add "Open with Code" action</strong> is handy but optional.</li>
+      <li><strong>Mac:</strong> open the downloaded file and drag <strong>Visual Studio Code</strong> into your Applications folder.</li>
+    </ul>
+  </li>
+  <li>Open VS Code and click the <strong>Extensions</strong> icon in the left sidebar (four small squares).</li>
+  <li>Search for and install these two extensions, both published by Microsoft:
+    <ul>
+      <li><strong>Python</strong></li>
+      <li><strong>Jupyter</strong></li>
+    </ul>
+  </li>
+  <li>Make a folder for the course somewhere easy to find, such as <code>Documents/MPT27</code>. You'll keep your notebooks, scripts and data there.</li>
+</ol>
+
+<h2>Step 3: Create the photometry environment</h2>
+<ol>
+  <li>Download <strong>photometry.yml</strong> from the course Discord and save it in your course folder (for example <code>Documents/MPT27</code>).</li>
+  <li>Open <strong>Miniforge Prompt</strong> (Windows) or <strong>Terminal</strong> (Mac/Linux).</li>
+  <li>Move into your course folder with <code>cd</code>:</li>
+</ol>
+<pre><code>cd Documents/MPT27</code></pre>
+<p>On Windows, if your folder is somewhere else, type <code>cd </code> and then drag the folder into the window to paste its path.</p>
+<ol start="4">
+  <li>Create the environment:</li>
+</ol>
+<pre><code>conda env create -f photometry.yml</code></pre>
+<p>This downloads and installs everything, so it can take 10&ndash;20 minutes. Let it finish. Seeing lots of text scroll by is normal.</p>
+<ol start="5">
+  <li>Turn the environment on:</li>
+</ol>
+<pre><code>conda activate photometry</code></pre>
+<p>Your prompt should now start with <code>(photometry)</code> instead of <code>(base)</code>. You need to run <code>conda activate photometry</code> each time you open a new terminal to work on course material. Inside VS Code, Step 4 sets this up for you.</p>
+
+<h2>Step 4: Use the environment in VS Code</h2>
+<p>VS Code needs to be told to use <strong>photometry</strong> rather than some other Python on your computer. Do this once per course folder.</p>
+<ol>
+  <li>In VS Code, choose <strong>File &rarr; Open Folder&hellip;</strong> and open your course folder.</li>
+  <li>Open the Command Palette: <strong>Ctrl+Shift+P</strong> (Windows/Linux) or <strong>Cmd+Shift+P</strong> (Mac).</li>
+  <li>Type <strong>Python: Select Interpreter</strong> and press Enter.</li>
+  <li>Pick the entry that says <strong>photometry</strong> (it will mention conda or miniforge3). If it's not listed, close and reopen VS Code and try again.</li>
+</ol>
+<p><strong>For Jupyter notebooks (.ipynb files):</strong> open or create a notebook, click <strong>Select Kernel</strong> in the top-right corner, choose <strong>Python Environments</strong>, then choose <strong>photometry</strong>.</p>
+<p><strong>For the terminal inside VS Code:</strong> open it with <strong>Terminal &rarr; New Terminal</strong>. If the prompt doesn't start with <code>(photometry)</code>, type <code>conda activate photometry</code>. On Windows, if that gives an error, check that you ran <code>conda init powershell</code> in Step 1, then restart VS Code.</p>
+
+<h2>Step 5: Check that everything works</h2>
+<ol>
+  <li>In your course folder in VS Code, create a new notebook: <strong>Ctrl/Cmd+Shift+P &rarr; Create: New Jupyter Notebook</strong>.</li>
+  <li>Select the <strong>photometry</strong> kernel (Step 4).</li>
+  <li>Paste this into the first cell and run it with <strong>Shift+Enter</strong>:</li>
+</ol>
+<pre><code>import sys
+import numpy, astropy, photutils, ccdproc, matplotlib
+print("Python", sys.version.split()[0])
+print("astropy", astropy.__version__, "| photutils", photutils.__version__)
+print("You're ready for MPT27!")</code></pre>
+<p>If you see <strong>You're ready for MPT27!</strong>, you're done. Save the notebook as <code>setup_check.ipynb</code>, take a screenshot of the output, and post it in the course Discord.</p>
+<p>If VS Code asks to install <code>ipykernel</code>, click <strong>Install</strong>. If you get a <code>ModuleNotFoundError</code>, the notebook is probably using the wrong Python: go back to Step 4 and select <strong>photometry</strong>.</p>
+
+<h2>Troubleshooting and getting help</h2>
+<table>
+  <thead><tr><th>Problem</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr><td><code>conda: command not found</code> (Mac/Linux)</td><td>Quit and reopen Terminal. If it still fails, run <code>~/miniforge3/bin/conda init</code> and reopen Terminal.</td></tr>
+    <tr><td><code>conda</code> not recognized (Windows)</td><td>Use <strong>Miniforge Prompt</strong> from the Start menu, not the regular Command Prompt.</td></tr>
+    <tr><td><code>conda activate</code> fails in VS Code's terminal (Windows)</td><td>In Miniforge Prompt run <code>conda init powershell</code>, then fully restart VS Code.</td></tr>
+    <tr><td><code>photometry</code> isn't in VS Code's interpreter or kernel list</td><td>Close and reopen VS Code. Check <code>conda env list</code> shows <strong>photometry</strong>.</td></tr>
+    <tr><td><code>conda env create</code> stops with an error</td><td>Copy the last 20 or so lines of the error and post them in Discord. Don't keep retrying.</td></tr>
+    <tr><td>A previous attempt half-finished</td><td>Run <code>conda env remove -n photometry</code>, then repeat Step 3.</td></tr>
+  </tbody>
+</table>
+<p><strong>Getting help:</strong> post in the course Discord with your operating system (Windows/Mac/Linux), which step you're on, and a screenshot or the copied error text. Error text is more useful than "it didn't work."</p>
+
+</main>
+<footer>MACRO Consortium &middot; MACRO Preceptor Training 27 &middot; Spring 2027</footer>
+</div>
+<script>
+(function () {
+  var content = document.getElementById('content'), nav = document.getElementById('nav'), used = {};
+  var short = { 'Course description and goals': 'Goals', 'Course information': 'Course info', 'Weekly schedule': 'Schedule',
+                'Assignments and grading': 'Grading', 'Software and resources': 'Resources' };
+  Array.prototype.forEach.call(content.querySelectorAll('h2'), function (h) {
+    var label = h.textContent.trim();
+    var id = label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'section';
+    var base = id, n = 2; while (used[id]) id = base + '-' + (n++); used[id] = 1; h.id = id;
+    var a = document.createElement('a'); a.href = '#' + id;
+    a.textContent = short[label] || label.replace(/^(Step \d+):.*/, '$1').replace(/^Troubleshooting.*/i, 'Troubleshooting')
+                                        .replace(/^Final Project:.*/i, 'Final Project');
+    nav.appendChild(a);
+  });
+  Array.prototype.forEach.call(content.querySelectorAll('pre'), function (pre) {
+    var b = document.createElement('button'); b.className = 'copybtn'; b.type = 'button'; b.textContent = 'Copy';
+    b.onclick = function () {
+      var text = (pre.querySelector('code') || pre).textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1500);
+      }, function () { b.textContent = 'Select & copy'; });
+    };
+    pre.appendChild(b);
+  });
+})();
+</script>
+</body>
+</html>
