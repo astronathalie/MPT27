@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+g<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -164,7 +164,7 @@
 (function () {
   var content = document.getElementById('content'), nav = document.getElementById('nav'), used = {};
   var short = { 'Course description and goals': 'Goals', 'Course information': 'Course info', 'Weekly schedule': 'Schedule',
-                'Assignments and grading': 'Grading', 'Software and resources': 'Resources' };
+               'Software and resources': 'Resources' };
   Array.prototype.forEach.call(content.querySelectorAll('h2'), function (h) {
     var label = h.textContent.trim();
     var id = label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'section';
